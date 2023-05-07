@@ -18,7 +18,7 @@ while True:
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
 
     # 캐니 에지 검출
-    edges = cv2.Canny(blur, 50, 150, apertureSize=3)
+    edges = cv2.Canny(blur, 20, 150, apertureSize=3)
 
     # 컨투어 검출
     contours, _ = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -62,8 +62,8 @@ while True:
             #ex> 0도는 수평선과 평행한 화살표를 의미하며, 90도는 수직선과 평행한 화살표를 의미
 
     # 출력 이미지 크기 조정
-    scale_percent = 520 / frame.shape[0]
-    width = int(frame.shape[1] * scale_percent)
+    scale_percent = 720 / frame.shape[0]
+    width = int(frame.shape[1] * 1.5 * scale_percent)
     height = int(frame.shape[0] * scale_percent)
     dim = (width, height)
     resized = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)

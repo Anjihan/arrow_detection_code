@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # 영상 파일 읽기
-cap = cv2.VideoCapture('example/KakaoTalk_20230506_163340560.mp4')
+cap = cv2.VideoCapture(0)
 
 while True:
     # 영상 프레임 읽기
@@ -21,22 +21,21 @@ while True:
 
     # 화살표 검출
     arrow = None
-    if lines is not None:
-        for line in lines:
-            x1, y1, x2, y2 = line[0]
+    for line in lines:
+        x1, y1, x2, y2 = line[0]
 
-            # 선분 길이 계산
-            length = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        # 선분 길이 계산
+        length = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-            # 선분 방향 계산
-            angle = -1 * cv2.fastAtan2(float(y2 - y1), float(x2 - x1))
-            if angle < 0:
-                angle += 360
+        # 선분 방향 계산
+        angle = -1 * cv2.fastAtan2(float(y2 - y1), float(x2 - x1))
+        if angle < 0:
+            angle += 360
 
-            # 화살표 검출 조건 확인
-            if length > 80 and angle > 50 and angle < 130:
-                arrow = line
-                break
+        # 화살표 검출 조건 확인
+        if length > 80 and angle > 50 and angle < 130:
+            arrow = line
+            break
 
     # 화살표 그리기
     if arrow is not None:
